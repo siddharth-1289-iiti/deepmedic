@@ -65,7 +65,8 @@ class NiftiImage(object):
         return self.reader.GetPixelIDValue()
 
     def get_pixel_type_string(self):
-        return self.reader.GetPixelID()
+        dtype = self.get_pixel_type()
+        return sitk.GetPixelIDValueAsString(dtype)
 
     def get_resample_parameters(self):
         return self.get_size(), self.get_pixel_dims(), self.get_direction(), self.get_origin()
