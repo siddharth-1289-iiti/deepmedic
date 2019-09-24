@@ -118,9 +118,9 @@ def resample_images(filelist, ref=None, origin=None, pixel_dims=None, direction=
     for image_path in filelist:
         path_split = image_path.split('.')
         image_name = path_split[0]
+        if thumbnails_folder:
+            thumbnail_file = os.path.join(thumbnails_folder, image_name.split('/')[-1])
         if save_folder:
-            if thumbnails_folder:
-                thumbnail_file = os.path.join(thumbnails_folder, image_name.split('/')[-1])
             image_name = os.path.join(save_folder, image_name.split('/')[-1])
         image_extension = '.'.join(path_split[1:])
         image = NiftiImage(image_path)
@@ -148,12 +148,13 @@ def run_checks(filelist, pixs=False, dims=False, dtypes=False, disable_tqdm=Fals
 if __name__ == "__main__":
     # base_path = '/vol/vipdata/data/brain/adni/images/brain_adni2/'
     # base_path = '/vol/vipdata/data/brain/brats/2017_kostas/preprocessed_v2'
-    base_path = '/vol/biomedic2/bgmarque/deepmedic/examples/dataForExamples/brats2017_kostas2'
+    # base_path = '/vol/biomedic2/bgmarque/deepmedic/examples/dataForExamples/brats2017_kostas2'
     # test_image = '/vol/vipdata/data/brain/brats/2017_kostas/preprocessed_v2/Brats17TrainingData/HGG/Brats17_2013_2_1/Brats17_2013_2_1_t1.nii.gz'
     # img = NiftiImage(test_image)
     # for key in img.get_header_keys():
     #     print("{0}: {1}".format(key, img.reader.GetMetaData(key)))
-    filelist = glob.glob(os.path.join(base_path, '**/*.nii.gz'), recursive=True)
+    # filelist = glob.glob(os.path.join(base_path, '**/*.nii.gz'), recursive=True)
+    filelist = glob.glob(os.path.join('‎/MachintoshHD/Users/bernardomarques/Downloads/', '*.dcm'), recursive=True)
     run_checks(filelist, dtypes=True)  # dims=True, pixs=True, disable_tqdm=False)
     # dims_count, pixel_count = get_image_dims_stats(glob.glob(os.path.join(base_path, '**/*.nii.gz'), recursive=True), do_dims=False)
     # print('Dims Count')

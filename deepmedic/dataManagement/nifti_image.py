@@ -65,8 +65,7 @@ class NiftiImage(object):
         return self.reader.GetPixelIDValue()
 
     def get_pixel_type_string(self):
-        dtype = self.get_pixel_type()
-        return sitk.GetPixelIDValueAsString(dtype)
+        return sitk.GetPixelIDValueAsString(self.get_pixel_type())
 
     def get_resample_parameters(self):
         return self.get_size(), self.get_pixel_dims(), self.get_direction(), self.get_origin()
@@ -75,14 +74,12 @@ class NiftiImage(object):
         return self.reader.GetMetaDataKeys()
 
     def apply_resample(self, origin, pixel_dims, direction, size, interpolator=sitk.sitkLinear):
-
         resample = sitk.ResampleImageFilter()
         resample.SetInterpolator(interpolator)
         resample.SetOutputDirection(direction)
         resample.SetOutputOrigin(origin)
         resample.SetOutputSpacing(pixel_dims)
         resample.SetSize(size)
-
         return resample.Execute(self.open())
 
     def resample(self, origin=None, pixel_dims=None, direction=None, size=None, standard=False,
